@@ -14,18 +14,18 @@
  *        return { type: YOUR_ACTION_CONSTANT, var: var }
  *    }
  */
+import axios from 'axios';
 
 import {
     ACTIVE_PANEL,
-    COMMENTS,
+    COMMENTS, CREATE_POST,
     DATE_OF_BIRTH,
-    EMAIL_ADDRESS,
-    FIRST_NAME,
-    GENDER, STEP1_DATA,
-    SURNAME,
+    GENDER,
     TELEPHONE_NUMBER,
 } from './constants';
 
+const ROOT_URL = '';
+const API_KEY = '';
 
 /**
  * Changes Panel of the accordion
@@ -41,46 +41,13 @@ export function activePanel(active) {
     };
 }
 
-/**
- * Changes the input field of the form
- *
- * @param  {firstName} firstName The new text of the input field
- *
- * @return {string}    A action string with a type of FIRST_NAME
- */
-export function inputFirstName(firstName) {
-    return {
-        type: FIRST_NAME,
-        firstName,
-    };
-}
+export function createPost(values) {
+    const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values);
 
-/**
- * Changes the input field of the form
- *
- * @param  {surname} surname The new text of the input field
- *
- * @return {string}    A action string with a type of FIRST_NAME
- */
-export function inputSurname(surname) {
     return {
-        type: SURNAME,
-        surname,
-    };
-}
-
-/**
- * Changes the input field of the form
- *
- * @param  {emailAddress} emailAddress The new text of the input field
- *
- * @return {string}    A action string with a type of EMAIL_ADDRESS
- */
-export function inputEmailAddress(emailAddress) {
-    return {
-        type: EMAIL_ADDRESS,
-        emailAddress,
-    };
+        type: CREATE_POST,
+        payload: request,
+    }
 }
 
 /**

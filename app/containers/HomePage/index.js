@@ -6,20 +6,13 @@ import injectSaga from 'utils/injectSaga';
 
 import {
     activePanel,
-    inputFirstName,
-    inputSurname,
-    inputEmailAddress,
     inputTelephoneNumber,
     inputGender,
     inputDateOfBirth,
     inputComments,
-    sendStep1Data,
 } from './actions';
 import {
     makeSelectActivePanel,
-    makeSelectFirstName,
-    makeSelectSurname,
-    makeSelectEmailAddress,
     makeSelectTelephoneNumber,
     makeSelectGender,
     makeSelectDateOfBirth,
@@ -31,14 +24,10 @@ import HomePage from './HomePage';
 
 const mapDispatchToProps = (dispatch) => ({
     onChangeActivePanel: (active) => dispatch(activePanel(active)),
-    onChangeFirstName: (evt) => dispatch(inputFirstName(evt.target.value)),
-    onChangeSurname: (evt) => dispatch(inputSurname(evt.target.value)),
-    onChangeEmailAddress: (evt) => dispatch(inputEmailAddress(evt.target.value)),
     onChangeTelephoneNumber: (evt) => dispatch(inputTelephoneNumber(evt.target.value)),
     onChangeGender: (evt) => dispatch(inputGender(evt.target.value)),
     onChangeDateOfBirth: (evt) => dispatch(inputDateOfBirth(evt)),
     onChangeComments: (evt) => dispatch(inputComments(evt.target.value)),
-    sendStep1Data: (firstName, surname, emailAddress) => dispatch(sendStep1Data(firstName, surname, emailAddress)),
     // onSubmitForm: (evt) => {
     //     // if (evt !== undefined && evt.preventDefault) evt.preventDefault();
     //
@@ -60,9 +49,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = createStructuredSelector({
     active: makeSelectActivePanel(),
-    firstName: makeSelectFirstName(),
-    surname: makeSelectSurname(),
-    emailAddress: makeSelectEmailAddress(),
     telephoneNumber: makeSelectTelephoneNumber(),
     gender: makeSelectGender(),
     dateOfBirth: makeSelectDateOfBirth(),

@@ -13,9 +13,6 @@ import { fromJS } from 'immutable';
 
 import {
     ACTIVE_PANEL,
-    FIRST_NAME,
-    SURNAME,
-    EMAIL_ADDRESS,
     TELEPHONE_NUMBER,
     GENDER,
     DATE_OF_BIRTH,
@@ -25,11 +22,6 @@ import {
 // The initial state of the App
 const initialState = fromJS({
     active: 1,
-    step1: {
-        firstName: '',
-        surname: '',
-        emailAddress: '',
-    },
     step2: {
         telephoneNumber: '',
         gender: '',
@@ -44,12 +36,6 @@ function homeReducer(state = initialState, action) {
     switch (action.type) {
         case ACTIVE_PANEL:
             return state.set('active', action.active);
-        case FIRST_NAME:
-            return state.setIn(['step1', 'firstName'], action.firstName);
-        case SURNAME:
-            return state.setIn(['step1', 'surname'], action.surname);
-        case EMAIL_ADDRESS:
-            return state.setIn(['step1', 'emailAddress'], action.emailAddress);
         case TELEPHONE_NUMBER:
             return state.setIn(['step2', 'telephoneNumber'], action.telephoneNumber);
         case GENDER:

@@ -10,9 +10,8 @@
  */
 
 export const ACTIVE_PANEL = 'boilerplate/Home/ACTIVE_PANEL';
-export const FIRST_NAME = 'boilerplate/Home/FIRST_NAME';
-export const SURNAME = 'boilerplate/Home/SURNAME';
-export const EMAIL_ADDRESS = 'boilerplate/Home/EMAIL_ADDRESS';
+export const CREATE_POST = 'boilerplate/Home/CREATE_POST';
+
 export const TELEPHONE_NUMBER = 'boilerplate/Home/TELEPHONE_NUMBER';
 export const GENDER = 'boilerplate/Home/GENDER';
 export const DATE_OF_BIRTH = 'boilerplate/Home/DATE_OF_BIRTH';
