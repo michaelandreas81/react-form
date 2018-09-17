@@ -1,32 +1,103 @@
 .home-page {
-  
-  h2 {
-    font-size: 1.5em;
-  }
-  
+
   section {
-    margin: 3em auto;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
     &.centered {
-      text-align: center;
+      background: #FFFFFF;
+      padding: 5px;
+      border-radius: 8px;
+      box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.2);
+      .panel-group {
+        margin-bottom: 0;
+        width: 600px;
+        .panel-heading {
+          padding: 15px 15px;
+          background-image: linear-gradient(rgb(255, 197, 0), rgb(238, 162, 14));
+          .panel-title {
+            font-size: 14px;
+            color: #FFFFFF;
+            text-shadow: 1px 1px #666666;
+            text-align: left;
+          }
+        }
+        .panel-body {
+          padding: 7px;
+          background-color: #dedede;
+          button {
+            background-image: linear-gradient(#404bb6, #7563d3);
+            height: 30px;
+            color: #FFFFFF;
+            font-size: 14px;
+            width: 120px;
+            border-radius: 10px;
+            grid-column-start: 3;
+            grid-row-end: 4;
+            justify-self: end;
+          }
+          .comments {
+            button {
+              grid-row-end: 1;
+              align-self: end;
+            }
+          }
+          .autocomplete-dropdown-container {
+            padding: 0 10px;
+            font-size: 12px;
+            background: #FFFFFF;
+            box-shadow: 0 0 25px 0px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
     }
   }
 
-  form {
-    margin-bottom: 1em;
-
-    input {
-      outline: none;
-      border-bottom: 1px dotted #999;
+  input {
+    outline: none;
+    &.form-control {
+      box-shadow: inset 0 0 15px -2px #888;
+      height: 35px;
+      padding: 10px;
+      font-size: 12px;
     }
   }
 
-  span.at-prefix {
-    color: black;
-    margin-left: 0.4em;
+  select {
+    &.form-control {
+      box-shadow: inset 0 0 15px -2px #888;
+      height: 35px;
+    }
+  }
+
+  label {
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    margin-left: 3px;
+  }
+
+  textarea {
+    &.form-control {
+      box-shadow: inset 0 0 15px -2px #888;
+      height: 120px !important;
+      font-size: 14px;
+    }
+  }
+
+  .form-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 70px 70px 1fr;
+    grid-column-gap: 15px;
+    .form-group {
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+      &.dob {
+        grid-column-start: 1;
+        column-gap: 5px;
+        .control-label {
+          grid-column-start: 1;
+          grid-column-end: all;
+        }
+      }
+    }
   }
 }

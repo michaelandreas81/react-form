@@ -6,11 +6,6 @@ import { createSelector } from 'reselect';
 
 const selectHome = (state) => state.get('home');
 
-const makeSelectUsername = () => createSelector(
-    selectHome,
-    (homeState) => homeState.get('username'),
-);
-
 const makeSelectActivePanel = () => createSelector(
     selectHome,
     (homeState) => homeState.get('active'),
@@ -43,7 +38,7 @@ const makeSelectGender = () => createSelector(
 
 const makeSelectDateOfBirth = () => createSelector(
     selectHome,
-    (homeState) => homeState.getIn(['step2', 'DateOfBirth']),
+    (homeState) => homeState.getIn(['step2', 'dateOfBirth']),
 );
 
 const makeSelectComments = () => createSelector(
@@ -53,7 +48,6 @@ const makeSelectComments = () => createSelector(
 
 export {
     selectHome,
-    makeSelectUsername,
     makeSelectActivePanel,
     makeSelectFirstName,
     makeSelectSurname,
