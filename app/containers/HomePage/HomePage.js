@@ -9,7 +9,7 @@ import Step3 from './Steps/Step3';
 import './style.scss';
 
 
-export default class HomePage extends React.PureComponent {
+export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
     render() {
         const { active, onChangeActivePanel } = this.props;
 
