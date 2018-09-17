@@ -39,23 +39,23 @@ const mapDispatchToProps = (dispatch) => ({
     onChangeDateOfBirth: (evt) => dispatch(inputDateOfBirth(evt)),
     onChangeComments: (evt) => dispatch(inputComments(evt.target.value)),
     sendStep1Data: (firstName, surname, emailAddress) => dispatch(sendStep1Data(firstName, surname, emailAddress)),
-    onSubmitForm: (evt) => {
-        // if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-
-        const url = '/thank-you';
-        const data = {firstName: 'example'};
-
-        fetch(url, {
-            method: 'POST', // or 'PUT'
-            body: JSON.stringify(data), // data can be `string` or {object}!
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(response => console.log('Success:', JSON.stringify(response)))
-            .catch(error => console.error('Error:', error));
-        evt.preventDefault();
-    },
+    // onSubmitForm: (evt) => {
+    //     // if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    //
+    //     const url = '/thank-you';
+    //     const data = {firstName: 'example'};
+    //
+    //     fetch(url, {
+    //         method: 'POST', // or 'PUT'
+    //         body: JSON.stringify(data), // data can be `string` or {object}!
+    //         headers:{
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then(res => res.json())
+    //         .then(response => console.log('Success:', JSON.stringify(response)))
+    //         .catch(error => console.error('Error:', error));
+    //     evt.preventDefault();
+    // },
 });
 
 const mapStateToProps = createStructuredSelector({
