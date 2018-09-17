@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
 
-const CustomButton = ({ onClick }) => (
+const CustomButton = ({ onClick, disabled, type }) => (
     <Button
         bsSize="small"
-        type="submit"
+        type={type}
         onClick={onClick}
+        disabled={disabled}
     >
         Next >
     </Button>
