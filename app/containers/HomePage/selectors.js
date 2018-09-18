@@ -11,31 +11,7 @@ const makeSelectActivePanel = () => createSelector(
     (homeState) => homeState.get('active'),
 );
 
-const makeSelectTelephoneNumber = () => createSelector(
-    selectHome,
-    (homeState) => homeState.getIn(['step2', 'telephoneNumber']),
-);
-
-const makeSelectGender = () => createSelector(
-    selectHome,
-    (homeState) => homeState.getIn(['step2', 'gender']),
-);
-
-const makeSelectDateOfBirth = () => createSelector(
-    selectHome,
-    (homeState) => homeState.getIn(['step2', 'dateOfBirth']),
-);
-
-const makeSelectComments = () => createSelector(
-    selectHome,
-    (homeState) => homeState.getIn(['step3', 'comments']),
-);
-
 export {
     selectHome,
     makeSelectActivePanel,
-    makeSelectTelephoneNumber,
-    makeSelectGender,
-    makeSelectDateOfBirth,
-    makeSelectComments,
 };

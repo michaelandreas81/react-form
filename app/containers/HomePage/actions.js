@@ -18,21 +18,18 @@ import axios from 'axios';
 
 import {
     ACTIVE_PANEL,
-    COMMENTS, CREATE_POST,
-    DATE_OF_BIRTH,
-    GENDER,
-    TELEPHONE_NUMBER,
+    CREATE_POST,
 } from './constants';
 
-const ROOT_URL = '';
-const API_KEY = '';
+const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
+const API_KEY = '?react-form';
 
 /**
  * Changes Panel of the accordion
  *
  * @param  {active} active The active panel
  *
- * @return {number}    A action number with a type of ACTIVE_PANEL
+ * @return {{type: string, active: active}}    A action string with a type of ACTIVE_PANEL
  */
 export function activePanel(active) {
     return {
@@ -41,6 +38,13 @@ export function activePanel(active) {
     };
 }
 
+/**
+ * Changes Panel of the accordion
+ *
+ * @param  {values} values of step1
+ *
+ * @return {object}   A action object with a type of CREATE_POST
+ */
 export function createPost(values) {
     const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values);
 
@@ -48,69 +52,4 @@ export function createPost(values) {
         type: CREATE_POST,
         payload: request,
     }
-}
-
-/**
- * Changes the input field of the form
- *
- * @param  {telephoneNumber} telephoneNumber The new text of the input field
- *
- * @return {number}    A action number with a type of TELEPHONE_NUMBER
- */
-export function inputTelephoneNumber(telephoneNumber) {
-    return {
-        type: TELEPHONE_NUMBER,
-        telephoneNumber,
-    };
-}
-
-/**
- * Changes the input field of the form
- *
- * @param  {gender} gender The new text of the input field
- *
- * @return {string}    A action string with a type of GENDER
- */
-export function inputGender(gender) {
-    return {
-        type: GENDER,
-        gender,
-    };
-}
-
-/**
- * Changes the input field of the form
- *
- * @param  {dateOfBirth} dateOfBirth The new text of the input field
- *
- * @return {string}    A action string with a type of DATE_OF_BIRTH
- */
-export function inputDateOfBirth(dateOfBirth) {
-    return {
-        type: DATE_OF_BIRTH,
-        dateOfBirth,
-    };
-}
-
-/**
- * Changes the input field of the form
- *
- * @param  {comments} comments The new text of the input field
- *
- * @return {string}    A action string with a type of COMMENTS
- */
-export function inputComments(comments) {
-    return {
-        type: COMMENTS,
-        comments,
-    };
-}
-
-export function sendStep1Data(firstName, surname, emailAddress) {
-    return {
-        type: STEP1_DATA,
-        firstName,
-        surname,
-        emailAddress,
-    };
 }
