@@ -1,78 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import * as EmailValidator from 'email-validator';
 import { Form, Panel, FormGroup, ControlLabel } from 'react-bootstrap';
 
+import { createPost } from '../actions';
+
 import CustomButton from '../../../components/CustomButton/CustomButton';
 import AddressSearch from '../../../components/AddressSearch/AddressSearch';
-import FormInput from '../../../components/FormInput/FormInput';
+import PanelHeader from '../../../components/PanelHeader/PanelHeader';
 
 
 class Step1 extends React.PureComponent {
-    constructor(props) {
-        super(props);
 
-        this.validate = this.validate.bind(this);
-    }
+    static renderField(field) {
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-error' : ''}`;
 
-    validate() {
-        const { firstName, surname, emailAddress } = this.props.props;
-
-        const name = firstName.length && surname.length >= 1;
-        const email = EmailValidator.validate(emailAddress);
-
-        if (email && name) {
-            this.props.onChangeActivePanel(2);
-        }
-    }
-
-    static getValidationText(value) {
-        const length = value.length;
-        if (length > 1) {
-            return 'success';
-        } else if (length > 0) return 'error';
-        return null;
-    }
-
-    static getValidationEmail(value) {
-        const length = value.length;
-        const email = EmailValidator.validate(value);
-        if (email) {
-            return 'success';
-        } else if (length > 0) return 'error';
-        return null;
-    }
-
-    renderField(field) {
         return (
-            <div className="form-group has-danger">
-                <label>{field.label}</label>
+            <div className={className}>
+                <label className="control-label">{field.label}</label>
                 <input
                     className="form-control"
                     type={field.type}
+                    style={field.style}
                     {...field.input}
                 />
-                <div className="text-help">
-                    {field.meta.touched ? field.meta.error : ''}
-                </div>
+                <div className="error-text">{touched ? error : ''}</div>
             </div>
         );
     }
 
     onSubmit(values) {
+        this.props.createPost(values);
+        this.props.onChangeActivePanel(2);
         console.log(values);
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, expanded } = this.props;
 
         return (
             <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Panel eventKey="1" expanded={this.props.expanded} onToggle>
-                    <Panel.Heading>
-                        <Panel.Title>Step 1: Your details</Panel.Title>
-                    </Panel.Heading>
+                <Panel eventKey="1" expanded={expanded} onToggle>
+                    <PanelHeader title="Step 1: Your details"/>
 
                     <Panel.Collapse>
                         <Panel.Body collapsible>
@@ -81,45 +53,26 @@ class Step1 extends React.PureComponent {
                                 <Field
                                     label="First Name"
                                     name="firstName"
-                                    component={this.renderField}
+                                    component={Step1.renderField}
                                 />
 
                                 <Field
                                     label="Surname"
                                     name="surname"
-                                    component={this.renderField}
+                                    component={Step1.renderField}
                                 />
+
+                                <div/>
 
                                 <Field
                                     label="Email Address"
                                     name="email"
                                     type="email"
-                                    component={this.renderField}
+                                    component={Step1.renderField}
+                                    style={{ gridColumnStart: 1 }}
                                 />
 
-                                {/*<FormInput*/}
-                                {/*label="First Name"*/}
-                                {/*value={firstName}*/}
-                                {/*onChange={this.props.props.onChangeFirstName}*/}
-                                {/*validationState={Step1.getValidationText(firstName)}*/}
-                                {/*/>*/}
-
-                                {/*<FormInput*/}
-                                {/*label="Surname"*/}
-                                {/*value={surname}*/}
-                                {/*onChange={this.props.props.onChangeSurname}*/}
-                                {/*validationState={Step1.getValidationText(surname)}*/}
-                                {/*/>*/}
-
-                                {/*<FormInput*/}
-                                {/*label="Email Address:"*/}
-                                {/*value={emailAddress}*/}
-                                {/*onChange={this.props.props.onChangeEmailAddress}*/}
-                                {/*validationState={Step1.getValidationEmail(emailAddress)}*/}
-                                {/*style={{ gridColumnStart: 1 }}*/}
-                                {/*/>*/}
-
-                                <CustomButton onClick={this.validate} type="submit"/>
+                                <CustomButton type="submit"/>
 
                                 <FormGroup>
                                     <ControlLabel>Home Address:</ControlLabel>
@@ -138,16 +91,32 @@ function validate(values) {
     const errors = {};
 
     // Validate the inputs from 'values'
-    if (!values.firstName || values.firstName.length < 3) {
-        errors.firstName = 'First name must be more than 3 character!';
+    if (!values.firstName || values.firstName.length < 2) {
+        errors.firstName = 'Invalid first name';
+    }
+
+    if (!values.surname || values.surname.length < 2) {
+        errors.surname = 'Invalid surname';
+    }
+
+    if (!EmailValidator.validate(values.email)) {
+        errors.email = 'Invalid email';
     }
 
     // If errors is empty, the form is fine to submit
-    // If errors has *any* properties, redux form assumes form is invalid
     return errors;
 }
+
+Step1.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    expanded: PropTypes.bool.isRequired,
+    createPost: PropTypes.func.isRequired,
+    onChangeActivePanel: PropTypes.func.isRequired,
+};
 
 export default reduxForm({
     validate,
     form: 'Step1Form',
-})(Step1);
+})(
+    connect(null, { createPost })(Step1)
+);

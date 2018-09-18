@@ -1,78 +1,127 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Panel, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form/immutable';
+
+import { Panel, FormGroup, Form } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 
 import CustomButton from '../../../components/CustomButton/CustomButton';
-import FormInput from '../../../components/FormInput/FormInput';
+import { createPost } from '../actions';
+import PanelHeader from '../../../components/PanelHeader/PanelHeader';
 
 
-export default class Step2 extends React.PureComponent {
-    constructor(props) {
-        super(props);
+class Step2 extends React.PureComponent {
 
-        this.validate = this.validate.bind(this);
+    static renderField(field) {
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-error' : ''}`;
+
+        return (
+            <div className={className}>
+                <label className="control-label">{field.label}</label>
+                <input
+                    className="form-control"
+                    type={field.type}
+                    style={field.style}
+                    {...field.input}
+                />
+                <div className="error-text">{touched ? error : ''}</div>
+            </div>
+        );
     }
 
-    validate() {
-        const complete = this.props.props.telephoneNumber.length && this.props.props.gender.length && this.props.props.dateOfBirth.length >= 1;
-
-        if (complete) {
-            this.props.onChangeActivePanel(3);
-        }
+    static renderDatePicker({ input, meta: { touched, error } }) {
+        return (
+            <div className="form-group">
+                <label className="control-label">Date of birth</label>
+                <DatePicker {...input} dateForm="MM/DD/YYYY" selected={input.value} />
+                <div className="error-text">{touched ? error : ''}</div>
+            </div>
+        );
     }
 
-    static getValidationText(value) {
-        const length = value.length;
-        if (length > 10) {
-            return 'success';
-        } else if (length > 0) return 'error';
-        return null;
+    onSubmit(values) {
+        this.props.createPost(values);
+        this.props.onChangeActivePanel(3);
+        console.log(values);
     }
 
     render() {
-        const { telephoneNumber, dateOfBirth } = this.props.props;
+        const { handleSubmit, expanded } = this.props;
 
         return (
-            <Panel eventKey="2" expanded={this.props.expanded} onToggle>
-                <Panel.Heading>
-                    <Panel.Title>Step 2: More comments</Panel.Title>
-                </Panel.Heading>
-                <Panel.Collapse>
-                    <Panel.Body>
-                        <div className="form-wrapper">
-                            <FormInput
-                                label="Telephone number"
-                                value={telephoneNumber}
-                                onChange={this.props.props.onChangeTelephoneNumber}
-                                validationState={Step2.getValidationText(telephoneNumber)}
-                            />
+            <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                <Panel eventKey="2" expanded={expanded} onToggle>
+                    <PanelHeader title="Step 2: More comments" />
 
-                            <FormGroup controlId="formControlsSelect">
-                                <ControlLabel>Gender</ControlLabel>
-                                <FormControl
-                                    componentClass="select"
-                                    placeholder="Select Gender"
-                                    style={{ boxShadow: 'inset 0 -5px 20px 2px #888' }}
-                                    onChange={this.props.props.onChangeGender}
-                                >
-                                    <option value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </FormControl>
-                            </FormGroup>
+                    <Panel.Collapse>
+                        <Panel.Body>
+                            <div className="form-wrapper">
+                                <Field
+                                    label="Telephone number"
+                                    name="telephone"
+                                    component={Step2.renderField}
+                                    type="tel"
+                                />
 
-                            <FormGroup className="dob">
-                                <ControlLabel>Date of birth</ControlLabel>
-                                <DatePicker value={dateOfBirth}
-                                            onChange={date => this.props.props.onChangeDateOfBirth(date)}/>
-                            </FormGroup>
+                                <FormGroup>
+                                    <label className="control-label">Gender</label>
+                                    <Field name="gender" component="select">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </Field>
+                                </FormGroup>
 
-                            <CustomButton onClick={this.validate} type="button"/>
-                        </div>
-                    </Panel.Body>
-                </Panel.Collapse>
-            </Panel>
+                                <div/>
+
+                                <Field
+                                    label="Date of birth"
+                                    name="date"
+                                    component={Step2.renderDatePicker}
+                                />
+
+                                <CustomButton type="submit"/>
+                            </div>
+                        </Panel.Body>
+                    </Panel.Collapse>
+                </Panel>
+            </Form>
         );
     }
 }
+
+function validate(values) {
+    const errors = {};
+
+    // Validate the inputs from 'values'
+    if (!values.telephone || values.telephone.length < 10) {
+        errors.telephone = 'Invalid telephone number';
+    }
+
+    if (!values.gender) {
+        errors.gender = 'Select your gender';
+    }
+
+    if (!values.date) {
+        errors.date = 'Invalid date of birth';
+    }
+
+    // If errors is empty, the form is fine to submit
+    return errors;
+}
+
+Step2.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    expanded: PropTypes.bool.isRequired,
+    createPost: PropTypes.func.isRequired,
+    onChangeActivePanel: PropTypes.func.isRequired,
+};
+
+export default reduxForm({
+    validate,
+    form: 'Step2Form',
+})(
+    connect(null, { createPost })(Step2),
+);

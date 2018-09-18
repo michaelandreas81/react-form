@@ -1,56 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import { Panel } from 'react-bootstrap';
-import { Redirect } from 'react-router';
+import { Form, FormGroup, Panel } from 'react-bootstrap';
+import { Field, reduxForm } from 'redux-form/lib/immutable';
+import connect from 'react-redux/es/connect/connect';
+
+import { createPost } from '../actions';
+
 import CustomButton from '../../../components/CustomButton/CustomButton';
-import FormInput from '../../../components/FormInput/FormInput';
+import PanelHeader from '../../../components/PanelHeader/PanelHeader';
 
 
-export default class Step3 extends React.PureComponent {
-    constructor() {
-        super();
+class Step3 extends React.PureComponent {
+
+    onSubmit(values) {
+        this.props.createPost(values);
+        console.log(values);
     }
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        this.setState({ redirect: true });
-        // get our form data out of state
-        const { firstName } = this.props.props;
-
-        axios.post('/', { firstName })
-            .then((result) => {
-                //access the results here....
-            });
-    };
-
     render() {
-        const { comments } = this.props.props;
-        const { from } = this.props.location || '/';
-        return (
-            <Panel eventKey="3" expanded={this.props.expanded} onToggle>
-                <Panel.Heading>
-                    <Panel.Title>Step 3: Final comments</Panel.Title>
-                </Panel.Heading>
-                <Panel.Collapse>
-                    <Panel.Body>
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: '2fr 1fr',
-                        }} className="comments">
+        const { handleSubmit, expanded } = this.props;
 
-                            <FormInput
-                                label="Comments"
-                                value={comments}
-                                onChange={this.props.props.onChangeComments}
-                                componentClass="textarea"
-                                controlId="formControlsTextarea"
-                            />
-                            <CustomButton onClick={() => this.onSubmit} type="submit"/>
-                        </div>
-                    </Panel.Body>
-                </Panel.Collapse>
-            </Panel>
+        return (
+            <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                <Panel eventKey="3" expanded={expanded} onToggle>
+                    <PanelHeader title="Step 3: Final comments" />
+                    <Panel.Collapse>
+                        <Panel.Body>
+                            <div className="comments">
+
+                                <FormGroup>
+                                    <label className="control-label">Comments</label>
+                                    <Field
+                                        label="Comments"
+                                        name="comments"
+                                        component="textarea"
+                                    />
+                                </FormGroup>
+
+                                <CustomButton type="submit"/>
+                            </div>
+                        </Panel.Body>
+                    </Panel.Collapse>
+                </Panel>
+            </Form>
         );
     }
 }
+
+Step3.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    expanded: PropTypes.bool.isRequired,
+    createPost: PropTypes.func.isRequired,
+};
+
+export default reduxForm({
+    form: 'Step3Form',
+})(
+    connect(null, { createPost })(Step3),
+);
