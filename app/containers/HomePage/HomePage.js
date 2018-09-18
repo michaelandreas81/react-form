@@ -7,7 +7,6 @@ import Step2 from './Steps/Step2';
 import Step3 from './Steps/Step3';
 
 import './style.scss';
-import ThankYouPage from '../ThankYouPage/ThankYouPage';
 
 
 export default class HomePage extends React.PureComponent {
@@ -18,17 +17,17 @@ export default class HomePage extends React.PureComponent {
             <div className="home-page">
                 <section className="centered">
                     <PanelGroup id="panel-group">
-                        <Step1 expanded={active === 1} onChangeActivePanel={onChangeActivePanel}/>
-                        <Step2 expanded={active === 2} onChangeActivePanel={onChangeActivePanel}/>
-                        <Step3 expanded={active === 3}/>
+                        <Step1 expanded={active === 1} onChangeActivePanel={onChangeActivePanel} />
+                        <Step2 expanded={active === 2} onChangeActivePanel={onChangeActivePanel} />
+                        <Step3 expanded={active === 3} />
                     </PanelGroup>
                 </section>
-                <ThankYouPage/>
             </div>
         );
     }
 }
 
 HomePage.propTypes = {
-    loading: PropTypes.bool,
+    active: PropTypes.number.isRequired,
+    onChangeActivePanel: PropTypes.func,
 };
