@@ -8,13 +8,13 @@ import { FETCH_POST } from './constants';
 
 // The initial state
 const initialState = fromJS({
-    id: 'hi',
+    post: '',
 });
 
 function thankYouReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_POST:
-            return console.log(_.mapKeys(action.payload.data, 'id'));
+            return _.mapKeys(action.payload.data, 'id');
         default:
             return state;
     }
