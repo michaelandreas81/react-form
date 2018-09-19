@@ -13,7 +13,6 @@ import PanelHeader from '../../../components/PanelHeader/PanelHeader';
 
 
 class Step1 extends React.PureComponent {
-
     static renderField(field) {
         const { meta: { touched, error } } = field;
         const className = `form-group ${touched && error ? 'has-error' : ''}`;
@@ -33,9 +32,10 @@ class Step1 extends React.PureComponent {
     }
 
     onSubmit(values) {
-        this.props.createPost(values);
-        this.props.onChangeActivePanel(2);
-        console.log(values);
+        this.props.createPost(values, 1, () => {
+            this.props.onChangeActivePanel(2);
+            console.log(values);
+        });
     }
 
     render() {
@@ -72,7 +72,7 @@ class Step1 extends React.PureComponent {
                                     style={{ gridColumnStart: 1 }}
                                 />
 
-                                <CustomButton type="submit"/>
+                                <CustomButton />
 
                                 <FormGroup>
                                     <ControlLabel>Home Address:</ControlLabel>

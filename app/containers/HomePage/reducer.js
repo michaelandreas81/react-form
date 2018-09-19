@@ -11,9 +11,7 @@
  */
 import { fromJS } from 'immutable';
 
-import {
-    ACTIVE_PANEL,
-} from './constants';
+import { ACTIVE_PANEL } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({

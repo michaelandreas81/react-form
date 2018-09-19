@@ -1,0 +1,48 @@
+{
+  "step1": [
+    {
+      "id": 1
+    },
+    {
+      "firstName": "Michael",
+      "surname": "Andreas",
+      "email": "mikey_and@hotmail.com",
+      "id": 2
+    },
+    {
+      "firstName": "Michael",
+      "surname": "Andreas",
+      "email": "mikey_and@hotmail.com",
+      "id": 3
+    }
+  ],
+  "step2": [
+    {
+      "id": 1
+    },
+    {
+      "telephone": "7775868652",
+      "gender": "Male",
+      "date": "2018-09-12T11:00:00.000Z",
+      "id": 2
+    },
+    {
+      "telephone": "7775868652",
+      "gender": "Male",
+      "date": "2018-09-19T11:00:00.000Z",
+      "id": 3
+    }
+  ],
+  "step3": [
+    {
+      "id": 1
+    },
+    {
+      "comments": "jsdfsdfs",
+      "id": 2
+    },
+    {
+      "id": 3
+    }
+  ]
+}

@@ -11,7 +11,7 @@ import './style.scss';
 
 export default class HomePage extends React.PureComponent {
     render() {
-        const { active, onChangeActivePanel } = this.props;
+        const { active, onChangeActivePanel, history } = this.props;
 
         return (
             <div className="home-page">
@@ -19,7 +19,7 @@ export default class HomePage extends React.PureComponent {
                     <PanelGroup id="panel-group">
                         <Step1 expanded={active === 1} onChangeActivePanel={onChangeActivePanel} />
                         <Step2 expanded={active === 2} onChangeActivePanel={onChangeActivePanel} />
-                        <Step3 expanded={active === 3} />
+                        <Step3 expanded={active === 3} history={history} />
                     </PanelGroup>
                 </section>
             </div>
@@ -30,4 +30,5 @@ export default class HomePage extends React.PureComponent {
 HomePage.propTypes = {
     active: PropTypes.number.isRequired,
     onChangeActivePanel: PropTypes.func,
+    history: PropTypes.object,
 };

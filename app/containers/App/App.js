@@ -3,7 +3,7 @@
  * App
  *
  * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
+ * contain code that should be seen on all pages.
  */
 
 import React from 'react';
@@ -17,11 +17,7 @@ import './style.scss';
 
 const App = () => (
     <div className="app-wrapper">
-        <Helmet
-            titleTemplate="%s - React.js Boilerplate"
-            defaultTitle="React.js Boilerplate"
-        >
-        </Helmet>
+        <Helmet titleTemplate="React.js Form" defaultTitle="React.js Form" />
         <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route path="/thank-you" component={ThankYouPage}/>

@@ -1,9 +1,6 @@
 import { fromJS } from 'immutable';
 
-import {
-    makeSelectFirstName,
-    selectHome,
-} from '../selectors';
+import { makeSelectActivePanel, selectHome } from '../selectors';
 
 describe('selectHome', () => {
     it('should select the home state', () => {
@@ -18,16 +15,15 @@ describe('selectHome', () => {
     });
 });
 
-describe('makeSelectFirstName', () => {
-    const firstNameSelector = makeSelectFirstName();
+describe('makeSelectActivePanel', () => {
+    const activeSelector = makeSelectActivePanel();
     it('should select the firstName', () => {
-        const firstName = 'Michael';
+        const active = 1;
         const mockedState = fromJS({
             home: {
-                firstName,
+                active,
             },
         });
-        expect(firstNameSelector(mockedState))
-            .toEqual(firstName);
+        expect(activeSelector(mockedState)).toEqual(1);
     });
 });

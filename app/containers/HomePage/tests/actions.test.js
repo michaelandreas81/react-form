@@ -1,42 +1,17 @@
-import { EMAIL_ADDRESS, FIRST_NAME, SURNAME } from '../constants';
+import { ACTIVE_PANEL } from '../constants';
+import { activePanel } from '../actions';
 
-import { inputEmailAddress, inputFirstName, inputSurname } from '../actions';
 
 describe('Home Actions', () => {
-    describe('inputFirstName', () => {
-        it('should return the correct type and the passed firstName', () => {
-            const firstName = 'Michael';
+    describe('activePanel', () => {
+        it('should return the correct type and the pass active', () => {
+            const active = 1;
             const expectedResult = {
-                type: FIRST_NAME,
-                firstName
+                type: ACTIVE_PANEL,
+                active
             };
 
-            expect(inputFirstName(firstName)).toEqual(expectedResult);
+            expect(activePanel(active)).toEqual(expectedResult);
         });
     });
-
-    describe('inputSurname', () => {
-        it('should return the correct type and the passed surname', () => {
-            const surname = 'Andreas';
-            const expectedResult = {
-                type: SURNAME,
-                surname
-            };
-
-            expect(inputSurname(surname)).toEqual(expectedResult);
-        });
-    });
-
-    describe('inputEmailAddress', () => {
-        it('should return the correct type and the passed emailAddress', () => {
-            const emailAddress = 'mikey_and@hotmail.com';
-            const expectedResult = {
-                type: EMAIL_ADDRESS,
-                emailAddress
-            };
-
-            expect(inputEmailAddress(emailAddress)).toEqual(expectedResult);
-        });
-    });
-
 });

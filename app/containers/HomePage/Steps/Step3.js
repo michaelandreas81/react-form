@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, Panel } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form/lib/immutable';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 
 import { createPost } from '../actions';
 
@@ -13,8 +13,10 @@ import PanelHeader from '../../../components/PanelHeader/PanelHeader';
 class Step3 extends React.PureComponent {
 
     onSubmit(values) {
-        this.props.createPost(values);
-        console.log(values);
+        this.props.createPost(values, 3, () => {
+            this.props.history.push('/thank-you');
+            console.log(values);
+        });
     }
 
     render() {
@@ -37,7 +39,7 @@ class Step3 extends React.PureComponent {
                                     />
                                 </FormGroup>
 
-                                <CustomButton type="submit"/>
+                                <CustomButton />
                             </div>
                         </Panel.Body>
                     </Panel.Collapse>
@@ -51,6 +53,7 @@ Step3.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     expanded: PropTypes.bool.isRequired,
     createPost: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

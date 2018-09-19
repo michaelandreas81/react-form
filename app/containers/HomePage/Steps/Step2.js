@@ -12,7 +12,6 @@ import PanelHeader from '../../../components/PanelHeader/PanelHeader';
 
 
 class Step2 extends React.PureComponent {
-
     static renderField(field) {
         const { meta: { touched, error } } = field;
         const className = `form-group ${touched && error ? 'has-error' : ''}`;
@@ -42,9 +41,10 @@ class Step2 extends React.PureComponent {
     }
 
     onSubmit(values) {
-        this.props.createPost(values);
-        this.props.onChangeActivePanel(3);
-        console.log(values);
+        this.props.createPost(values, 2, () => {
+            this.props.onChangeActivePanel(3);
+            console.log(values);
+        });
     }
 
     render() {
@@ -82,7 +82,7 @@ class Step2 extends React.PureComponent {
                                     component={Step2.renderDatePicker}
                                 />
 
-                                <CustomButton type="submit"/>
+                                <CustomButton />
                             </div>
                         </Panel.Body>
                     </Panel.Collapse>

@@ -8,6 +8,7 @@ import { reducer as formReducer } from 'redux-form';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
+import thankYouReducer from './containers/ThankYouPage/reducer';
 
 /*
  * routeReducer
@@ -45,6 +46,7 @@ export default function createReducer(injectedReducers) {
         route: routeReducer,
         global: globalReducer,
         form: formReducer,
+        post: thankYouReducer,
         ...injectedReducers,
     });
 }

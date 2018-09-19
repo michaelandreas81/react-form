@@ -1,9 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    getLatLng,
-} from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 
 export default class AddressSearch extends React.PureComponent {
@@ -15,15 +11,14 @@ export default class AddressSearch extends React.PureComponent {
         };
     }
 
-    handleChange = address => {
+    handleChange = (address) => {
         this.setState({ address });
     };
 
-    handleSelect = address => {
+    handleSelect = (address) => {
         geocodeByAddress(address)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => console.log('Success', latLng))
-            .catch(error => console.error('Error', error));
+            .then((results) => getLatLng(results[0]))
+            .catch((error) => console.error('Error', error));
     };
 
     render() {
@@ -42,27 +37,10 @@ export default class AddressSearch extends React.PureComponent {
                         />
                         <div className="autocomplete-dropdown-container">
                             {loading && <div>Loading...</div>}
-                            {suggestions.map(suggestion => {
-                                const className = suggestion.active
-                                    ? 'suggestion-item--active'
-                                    : 'suggestion-item';
-                                // inline style for demonstration purpose
-                                const style = suggestion.active
-                                    ? {
-                                        backgroundColor: '#fafafa',
-                                        cursor: 'pointer',
-                                    }
-                                    : {
-                                        backgroundColor: '#ffffff',
-                                        cursor: 'pointer',
-                                    };
+                            {suggestions.map((suggestion) => {
+                                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                                 return (
-                                    <div
-                                        {...getSuggestionItemProps(suggestion, {
-                                            className,
-                                            style,
-                                        })}
-                                    >
+                                    <div {...getSuggestionItemProps(suggestion, { className })}>
                                         <span>{suggestion.description}</span>
                                     </div>
                                 );
