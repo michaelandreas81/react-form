@@ -19,8 +19,8 @@ const App = () => (
     <div className="app-wrapper">
         <Helmet titleTemplate="React.js Form" defaultTitle="React.js Form" />
         <Switch>
-            <Route exact path="/" component={HomePage}/>
-            <Route path="/thank-you" component={ThankYouPage}/>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/thank-you" component={ThankYouPage} />
         </Switch>
     </div>
 );

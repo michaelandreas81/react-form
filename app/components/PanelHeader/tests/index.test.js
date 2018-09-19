@@ -5,7 +5,7 @@ import PanelHeader from '../index';
 
 describe('<PanelHeader />', () => {
     it('should render PanelHeader component', () => {
-        const renderedComponent = shallow(<PanelHeader title="title" />);
+        const renderedComponent = shallow(<PanelHeader title="title"/>);
         expect(renderedComponent.length).toEqual(1);
     });
 });

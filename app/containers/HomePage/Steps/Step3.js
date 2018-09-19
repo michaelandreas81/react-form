@@ -11,7 +11,6 @@ import PanelHeader from '../../../components/PanelHeader/PanelHeader';
 
 
 class Step3 extends React.PureComponent {
-
     onSubmit(values) {
         this.props.createPost(values, 3, () => {
             this.props.history.push('/thank-you');
